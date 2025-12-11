@@ -290,6 +290,56 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    const mql = window.matchMedia("(max-width: 900px)");
+
+    const linkId = "app-mobile-css";
+    const href = "/src/App.mobile.css"; // Works in dev. I will give you the build-safe version later.
+
+    function apply(shouldApply: boolean) {
+      const existing = document.getElementById(linkId) as HTMLLinkElement | null;
+
+      if (shouldApply && !existing) {
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = href;
+        link.id = linkId;
+        document.head.appendChild(link);
+      }
+
+      if (!shouldApply && existing) {
+        existing.remove();
+      }
+    }
+
+    // Initial load
+    apply(mql.matches);
+
+    // Listen for window size changes (orientation, resize, etc.)
+    const handler = (e: MediaQueryListEvent | MediaQueryList) => {
+      const matches = "matches" in e ? e.matches : (e as MediaQueryList).matches;
+      apply(matches);
+    };
+
+    if (mql.addEventListener) {
+      mql.addEventListener("change", handler);
+    } else {
+      mql.addListener(handler);
+    }
+
+    // Cleanup
+    return () => {
+      const existing = document.getElementById(linkId);
+      if (existing) existing.remove();
+
+      if (mql.removeEventListener) {
+        mql.removeEventListener("change", handler);
+      } else {
+        mql.removeListener(handler);
+      }
+    };
+  }, []);
+
   const location = useLocation();
 
   return (
