@@ -1,0 +1,44 @@
+/* src/pages/About.mobile.css
+   Mobile-only overrides for the About modal
+*/
+
+/* Make the dialog stack vertically and become full-width */
+.about-frame {
+  grid-template-columns: 1fr !important;
+  padding: 14px !important;
+  margin: 10px !important;
+  gap: 12px !important;
+  border-radius: 12px !important;
+}
+
+/* Move close button to the top-right but smaller */
+.about-close {
+  right: 10px !important;
+  top: 8px !important;
+  font-size: 18px !important;
+  padding: 6px 8px !important;
+}
+
+/* Left content full-width */
+.about-left {
+  order: 0 !important;
+  width: 100% !important;
+  padding-bottom: 6px !important;
+}
+
+/* Right content stacks under left content */
+.about-right {
+  order: 1 !important;
+  width: 100% !important;
+  margin-top: 6px !important;
+  display: block !important;
+}
+
+/* Tooling pills wrap and are larger tappable */
+.tooling-list { display: flex !important; flex-wrap: wrap !important; gap: 8px !important; }
+.tool-pill { padding: 6px 10px !important; font-size: 12px !important; }
+
+/* Headings & action buttons scaled for mobile */
+.about-heading { font-size: 20px !important; margin-bottom: 8px !important; }
+.section-title { font-size: 16px !important; margin-top: 10px !important; }
+.about-actions a { min-height: 44px !important; padding: 10px 12px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; }

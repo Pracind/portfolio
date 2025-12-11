@@ -46,7 +46,7 @@ export default function AboutPage() {
 
             <div className="about-actions" role="toolbar" aria-label="About actions">
               <a
-                href="/Dev_Phadke_Resume_Dec_2025.pdf"
+                href="/Dev_Phadke_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="primary-btn"

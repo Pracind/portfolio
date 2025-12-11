@@ -1,0 +1,95 @@
+/* src/App.mobile.css
+   Mobile-only overrides for the main frame layout.
+   Loaded dynamically on small screens only.
+*/
+
+/* Make the primary content single-column and give breathing room */
+.content-layer {
+  display: block;
+  padding: 16px;
+  gap: 12px;
+}
+
+/* Portrait becomes full-width and placed above other content */
+.portrait-card {
+  position: relative !important;
+  width: 92% !important;
+  height: 260px !important;
+  margin: 0 auto 12px auto !important;
+  right: auto !important;
+  top: auto !important;
+  order: -1 !important;
+  transform: none !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.45) !important;
+  background-size: cover !important;
+  background-position: center !important;
+  z-index: 5 !important;
+}
+
+/* Hide the right side rail (duplicates of quick facts) */
+.side-rail {
+  display: none !important;
+}
+
+/* Make hero and cards full width */
+.hero-card,
+.projects-card,
+.about-card,
+.footer-card {
+  width: 100% !important;
+  max-width: none !important;
+  margin-bottom: 12px !important;
+}
+
+/* Top nav: larger tap targets and slightly smaller height */
+.top-nav {
+  padding: 10px 14px !important;
+  gap: 8px !important;
+  position: sticky !important;
+  top: 8px !important;
+}
+
+/* Make nav links easier to tap */
+.top-nav nav a {
+  padding: 10px 12px !important;
+  min-height: 44px !important;
+}
+
+/* Project items stack with more spacing */
+.projects-list {
+  display: grid !important;
+  grid-auto-rows: min-content !important;
+  gap: 12px !important;
+}
+
+/* Ensure links and buttons meet touch target sizes */
+a, button, .project-link, .arrow-svg-link {
+  min-height: 44px !important;
+  padding: 10px 12px !important;
+}
+
+/* Reduce typography slightly */
+.hero-card h1 { font-size: 20px !important; line-height: 1.12 !important; }
+.hero-eyebrow, .about-eyebrow { font-size: 12px !important; }
+.projects-sub, .about-text { font-size: 14px !important; }
+
+/* Footer adjustments */
+.footer-card {
+  padding: 12px !important;
+  border-radius: 10px !important;
+}
+
+/* Minor spacing improvements */
+.frame {
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+
+/* Make sure any sticky elements don't overlap */
+body { padding-bottom: 40px; }
+
+/* If user prefers reduced motion, remove transitions */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

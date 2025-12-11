@@ -270,17 +270,23 @@ function App() {
   useEffect(() => {
     const handleStart = (_e: any) => {
       setHasStarted(true);
+
       // remove listeners immediately to prevent re-trigger
       window.removeEventListener("click", handleStart);
       window.removeEventListener("keydown", handleStart);
+      window.removeEventListener("touchstart", handleStart);
     };
 
     window.addEventListener("click", handleStart);
     window.addEventListener("keydown", handleStart);
 
+    // Mobile optimization — start immediately on touch
+    window.addEventListener("touchstart", handleStart, { passive: true });
+
     return () => {
       window.removeEventListener("click", handleStart);
       window.removeEventListener("keydown", handleStart);
+      window.removeEventListener("touchstart", handleStart);
     };
   }, []);
 
