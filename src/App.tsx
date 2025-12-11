@@ -33,7 +33,7 @@ function FrameContent({
             className="top-nav"
             initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.18 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <div className="logo">Dev Phadke</div>
             <nav>
@@ -248,7 +248,7 @@ function FrameContent({
           animate={
             hasStarted
               ? { opacity: 1, x: 0, y: 0 }
-              : { opacity: 1, x: -100, y: 125 }
+              : { opacity: 1, x: -138, y: 95 }
           }
           transition={{ duration: 0.8, ease: "easeOut" }}
           onAnimationComplete={() => {
