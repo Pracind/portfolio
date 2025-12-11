@@ -33,7 +33,7 @@ function FrameContent({
             className="top-nav"
             initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.18 }}
           >
             <div className="logo">Dev Phadke</div>
             <nav>
@@ -160,7 +160,8 @@ function FrameContent({
                   </a>
                 </div>
                 <p className="projects-sub">Job application tracking platform with dashboards, authentication, and AWS deployment.</p>
-              </div>              
+              </div>
+              
             </div>
           </motion.div>
         )}
@@ -243,7 +244,7 @@ function FrameContent({
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
           }}
-          initial={false}
+          initial={{ opacity: 1, x: -100, y: 125 }}
           animate={
             hasStarted
               ? { opacity: 1, x: 0, y: 0 }
@@ -292,7 +293,7 @@ function App() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      <AnimatePresence mode="wait" initial={false}>
+      <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           {/* framed homepage (root) */}
           <Route
