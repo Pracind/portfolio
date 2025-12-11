@@ -11,7 +11,6 @@ function FrameContent({
   hasStarted,
   setShowUI,
   showUI,
-  setHasStarted,
 }: {
   hasStarted: boolean;
   setShowUI: (v: boolean) => void;
@@ -268,7 +267,7 @@ function App() {
 
   // Start on first click or key press (one-shot)
   useEffect(() => {
-    const handleStart = (e: any) => {
+    const handleStart = (_e: any) => {
       setHasStarted(true);
       // remove listeners immediately to prevent re-trigger
       window.removeEventListener("click", handleStart);

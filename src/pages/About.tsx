@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import _React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import "./About.css";
