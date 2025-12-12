@@ -18,10 +18,8 @@ function renderApp(AppComponent: React.ComponentType) {
 
 // Decide mobile vs desktop at runtime.
 // Adjust the breakpoint as you prefer (900px used in your desktop App.tsx matchMedia).
-// const MOBILE_QUERY = "(max-width: 900px)";
-// const isMobile = typeof window !== "undefined" && window.matchMedia && window.matchMedia(MOBILE_QUERY).matches;
-
-const isMobile = true;
+const MOBILE_QUERY = "(max-width: 900px)";
+const isMobile = typeof window !== "undefined" && window.matchMedia && window.matchMedia(MOBILE_QUERY).matches;
 
 if (isMobile) {
   import("./App.mobile")
