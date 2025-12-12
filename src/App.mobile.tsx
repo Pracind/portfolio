@@ -11,7 +11,7 @@ function FrameContentMobile({
   hasStarted,
   setShowUI,
   showUI,
-  setHasStarted,
+  setHasStarted: _setHasStarted,
 }: {
   hasStarted: boolean;
   setShowUI: (v: boolean) => void;
@@ -23,16 +23,16 @@ function FrameContentMobile({
       className={"frame-mobile"}
       initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      transition={{ duration: 0.55, ease: "easeOut" }}
     >
       <div className="content-layer-mobile">
-        {/* TOP NAV */}
+        {/* TOP NAV – appears after portrait finishes */}
         {showUI && (
           <motion.header
             className="top-nav-mobile"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45 }}
+            transition={{ duration: 0.45, ease: "easeOut", delay: 0.06 }}
           >
             <div className="logo">Dev Phadke</div>
             <nav>
@@ -41,7 +41,7 @@ function FrameContentMobile({
           </motion.header>
         )}
 
-        {/* PORTRAIT (centered on mobile) */}
+        {/* PORTRAIT — ALWAYS MOUNTED (important). Animates in first. */}
         <motion.div
           className="portrait-card-mobile"
           style={{
@@ -49,21 +49,23 @@ function FrameContentMobile({
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
-          initial={{ opacity: 1, y: 40 }}
-          animate={hasStarted ? { y: 0 } : { y: 24 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          // start slightly lower and (optionally) slightly left so movement is visible
+          initial={{ opacity: 1, x: 0, y: 40, scale: 0.98 }}
+          animate={hasStarted ? { opacity: 1, x: 0, y: 0, scale: 1 } : { opacity: 1, x: 0, y: 24, scale: 0.98 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
           onAnimationComplete={() => {
+            // only reveal UI once the portrait has moved to its final spot
             if (hasStarted && !showUI) setShowUI(true);
           }}
         />
 
-        {/* HERO */}
+        {/* HERO – staggered a little after portrait */}
         {showUI && (
           <motion.div
             className="hero-card-mobile"
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.06 }}
+            transition={{ duration: 0.45, ease: "easeOut", delay: 0.08 }}
           >
             <p className="hero-eyebrow">OVERVIEW</p>
             <h1>
@@ -77,9 +79,9 @@ function FrameContentMobile({
         {showUI && (
           <motion.section
             className="about-card-mobile"
-            initial={{ opacity: 0, y: 8 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.08 }}
+            transition={{ duration: 0.45, ease: "easeOut", delay: 0.10 }}
           >
             <p className="about-eyebrow-mobile">ABOUT</p>
             <p className="about-text-mobile">
@@ -94,9 +96,9 @@ function FrameContentMobile({
         {showUI && (
           <motion.div
             className="projects-card-mobile"
-            initial={{ opacity: 0, y: 8 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.1 }}
+            transition={{ duration: 0.45, ease: "easeOut", delay: 0.12 }}
           >
             <div className="projects-header-mobile">
               <span>PROJECTS</span>
@@ -132,13 +134,13 @@ function FrameContentMobile({
           </motion.div>
         )}
 
-        {/* STATUS (condensed from side-rail) */}
+        {/* STATUS */}
         {showUI && (
           <motion.div
             className="status-card-mobile"
-            initial={{ opacity: 0, y: 8 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.12 }}
+            transition={{ duration: 0.45, ease: "easeOut", delay: 0.14 }}
           >
             <div className="status-header-mobile">STATUS</div>
 
@@ -161,13 +163,13 @@ function FrameContentMobile({
           </motion.div>
         )}
 
-        {/* FOOTER / CONTACT */}
+        {/* FOOTER */}
         {showUI && (
           <motion.footer
             className="footer-mobile"
-            initial={{ opacity: 0, y: 8 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.14 }}
+            transition={{ duration: 0.45, ease: "easeOut", delay: 0.16 }}
           >
             <div className="footer-title-mobile">Accelerate your AI roadmap.</div>
             <a href="mailto:devphadke2000@gmail.com" className="footer-link-mobile">Email</a>
@@ -179,8 +181,9 @@ function FrameContentMobile({
 }
 
 export default function AppMobile() {
-  const [hasStarted, setHasStarted] = useState(true);
-  const [showUI, setShowUI] = useState(true);
+  // START CLOSED — the entrance runs after a one-shot touch/click/keydown.
+  const [hasStarted, setHasStarted] = useState(false);
+  const [showUI, setShowUI] = useState(false);
 
   useEffect(() => {
     // one-shot starter: mark started and remove listeners immediately
