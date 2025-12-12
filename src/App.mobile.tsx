@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import portraitImg from "./assets/portait.jpg"; // ensure filename matches
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 
-import AboutPage from "./pages/About";
+import AboutMobile from "./pages/About.mobile";
 
 type FrameContentProps = {
   hasStarted: boolean;
@@ -71,9 +71,8 @@ function FrameContentMobile({
           >
             <p className="hero-eyebrow">OVERVIEW</p>
             <h1>
-              Build <span>Scalable, AI-Driven</span>
+              Build <span>Scalable, AI-Driven</span> web experiences.
             </h1>
-            <p className="hero-sub">Agentic AI, RAG systems, and full-stack delivery.</p>
           </motion.div>
         )}
 
@@ -227,7 +226,7 @@ export default function AppMobile() {
               />
             }
           />
-          <Route path="/about" element={<AboutPage />} />
+          <Route path="/about" element={<AboutMobile />} />
         </Routes>
       </AnimatePresence>
     </motion.div>

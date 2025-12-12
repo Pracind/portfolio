@@ -119,6 +119,20 @@ body { margin: 0; font-family: system-ui, -apple-system, "SF Pro Text", "Segoe U
   background-position: center;
 }
 
+.portrait-card-mobile::after {
+  content: "DEVELOPER • AI / PYTHON";
+  position: absolute;
+  bottom: -26px;                     /* move below or adjust inside the image */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: rgba(229,243,255,0.7);
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
 /* tablet & up: cap the size so it looks reasonable on iPad */
 @media (min-width: 600px) {
   .portrait-card-mobile {
@@ -136,7 +150,7 @@ body { margin: 0; font-family: system-ui, -apple-system, "SF Pro Text", "Segoe U
 
 
 .hero-card-mobile {
-  margin-top: 170px;
+  margin-top: 190px;
   width: 100%;
   text-align: left;
   padding: 8px 10px;

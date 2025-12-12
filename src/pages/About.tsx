@@ -12,6 +12,8 @@ const pageVariants = {
 export default function AboutPage() {
   const nav = useNavigate();
 
+  useEffect(()=>{ console.log("DESKTOP About mounted"); }, []);
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && nav("/");
     window.addEventListener("keydown", onKey);
