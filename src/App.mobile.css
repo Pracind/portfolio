@@ -18,7 +18,7 @@ body { margin: 0; font-family: system-ui, -apple-system, "SF Pro Text", "Segoe U
   min-height: 100vh;
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   padding: calc(18px * var(--ui-scale));
 }
@@ -47,11 +47,13 @@ body { margin: 0; font-family: system-ui, -apple-system, "SF Pro Text", "Segoe U
 
 .frame-hidden {
   background: transparent;
-  border: none;
-  opacity: 0;
+  border: 1px solid rgba(49,212,255,0.18);
   pointer-events: none;
   transform: translateY(6px);
   box-shadow: none;
+
+  /* KEY FIX → reserve the final height so the frame doesn't collapse */
+  min-height: 700px; /* adjust to match your final layout */
 }
 
 .frame-visible {
@@ -61,6 +63,18 @@ body { margin: 0; font-family: system-ui, -apple-system, "SF Pro Text", "Segoe U
   pointer-events: auto;
   transform: translateY(0);
   box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+}
+
+.frame-hidden .content-layer-mobile {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease;
+}
+
+.frame-visible .content-layer-mobile {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.28s ease;
 }
 
 .content-layer-mobile {
@@ -85,24 +99,39 @@ body { margin: 0; font-family: system-ui, -apple-system, "SF Pro Text", "Segoe U
 .top-nav-mobile .logo { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
 .top-nav-mobile nav a { font-size: 12px; color: rgba(229,243,255,0.8); text-decoration: none; }
 
+.portrait-wrapper {
+  position: absolute;
+  top: 75px;                 /* vertical offset from the top of the frame — tweak as needed */
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;   /* centers the portrait horizontally */
+  pointer-events: none;      /* so it doesn't block clicks while overlaying header */
+  z-index: 60;               /* keep above frame content */
+}
+
 
 .portrait-card-mobile {
-  width: 220px;
-  height: 160px;
+  width: clamp(160px, 46vw, 320px);   /* min 160px, ideal 46% of viewport, max 320px */
+  aspect-ratio: 4 / 3;
   border-radius: 12px;
   background-size: cover;
   background-position: center;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.7), 0 0 20px rgba(49,212,255,0.08) inset;
-  margin: 8px auto;
-  flex: 0 0 auto;
+}
 
-  
-  position: absolute;
-  top: 80px;
-  left: 20%;
-  transform: translateX(-50%);
-  z-index: 60;
+/* tablet & up: cap the size so it looks reasonable on iPad */
+@media (min-width: 600px) {
+  .portrait-card-mobile {
+    /* prefer a fixed-ish size on tablets */
+    width: clamp(190px, 24vw, 240px); /* min 190px, responsive up to 240px */
+  }
+}
 
+/* larger desktops if needed */
+@media (min-width: 1024px) {
+  .portrait-card-mobile {
+    width: 240px;
+  }
 }
 
 
@@ -202,3 +231,7 @@ body { margin: 0; font-family: system-ui, -apple-system, "SF Pro Text", "Segoe U
 
 /* small utility tweaks */
 .content-layer-mobile { padding-bottom: 20px; align-items: stretch; }
+
+
+
+
