@@ -91,48 +91,13 @@ export default function AboutPage() {
                 from prototype to production with high iteration speed.
               </p>
 
-          
-              <h3 className="section-title">Selected Projects</h3>
-
-              <ul className="project-list">
-                <li>
-                  <strong>
-                    <a 
-                      href="http://lifequest-frontend-pracind.s3-website.eu-north-1.amazonaws.com/" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="project-link"
-                    >
-                      LifeQuest AI
-                    </a>
-                  </strong>
-                  — A gamified self-improvement platform built with React and FastAPI, using Groq-powered AI 
-                  for goal decomposition, XP progression, and structured task generation. Deployed on AWS S3.
-                </li>
-
-                <li>
-                  <strong>
-                    <a 
-                      href="http://apptrackr.ddns.net/" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="project-link"
-                    >
-                      AppTrackr
-                    </a>
-                  </strong>
-                  — A cloud-based job application tracking platform with authentication, analytics dashboards, 
-                  and timeline visuals. CI/CD-enabled deployment on AWS EC2.
-                </li>
-              </ul>
-
               <h3 className="section-title">Hire Dev</h3>
               <p>
                 Dev brings a rare blend of deep technical capability and product-focused execution. He excels in 
-                <strong className="accent">turning early-stage ideas into scalable AI systems</strong> and is particularly
+                <strong className="accent"> turning early-stage ideas into scalable AI systems</strong> and is particularly
                 effective in environments that depend on 
-                <strong className="accent">fast iteration</strong> and 
-                <strong className="accent">production-grade RAG workflows</strong>. 
+                <strong className="accent"> fast iteration</strong> and 
+                <strong className="accent"> production-grade RAG workflows</strong>. 
                 Teams seeking an engineer who can deliver measurable outcomes with speed and clarity consistently 
                 find Dev a high-impact addition.
               </p>
