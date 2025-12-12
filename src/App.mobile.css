@@ -1,95 +1,168 @@
-/* src/App.mobile.css
-   Mobile-only overrides for the main frame layout.
-   Loaded dynamically on small screens only.
-*/
-
-/* Make the primary content single-column and give breathing room */
-.content-layer {
-  display: block;
-  padding: 16px;
-  gap: 12px;
+/* src/App.mobile.css */
+:root {
+  --ui-scale: 0.95;
+  --space-sm: 12px;
+  --radius-md: 12px;
+  --text-sm: 14px;
+  --text-lg: 20px;
 }
 
-/* Portrait becomes full-width and placed above other content */
-.portrait-card {
-  position: relative !important;
-  width: 92% !important;
-  height: 260px !important;
-  margin: 0 auto 12px auto !important;
-  right: auto !important;
-  top: auto !important;
-  order: -1 !important;
-  transform: none !important;
-  border-radius: 12px !important;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.45) !important;
-  background-size: cover !important;
-  background-position: center !important;
-  z-index: 5 !important;
+
+/* Reset / base */
+* { box-sizing: border-box; }
+html,body,#root { height: 100%; }
+body { margin: 0; font-family: system-ui, -apple-system, "SF Pro Text", "Segoe UI", sans-serif; background: #020309; color: #e5f3ff; }
+
+
+.app-root-mobile {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(18px * var(--ui-scale));
 }
 
-/* Hide the right side rail (duplicates of quick facts) */
-.side-rail {
-  display: none !important;
+
+.frame-mobile {
+  width: 100%;
+  max-width: 520px;
+  border-radius: calc(18px * var(--ui-scale));
+  background: rgba(5,9,21,0.95);
+  border: 1px solid rgba(49,212,255,0.12);
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Make hero and cards full width */
-.hero-card,
-.projects-card,
-.about-card,
-.footer-card {
-  width: 100% !important;
-  max-width: none !important;
-  margin-bottom: 12px !important;
+
+.content-layer-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
 }
 
-/* Top nav: larger tap targets and slightly smaller height */
-.top-nav {
-  padding: 10px 14px !important;
-  gap: 8px !important;
-  position: sticky !important;
-  top: 8px !important;
+
+.top-nav-mobile {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  background: rgba(5,9,21,0.7);
+  border: 1px solid rgba(49,212,255,0.06);
+
+}
+.top-nav-mobile .logo { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
+.top-nav-mobile nav a { font-size: 12px; color: rgba(229,243,255,0.8); text-decoration: none; }
+
+
+.portrait-card-mobile {
+  width: 120px;
+  height: 160px;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.7), 0 0 20px rgba(49,212,255,0.08) inset;
+  margin: 8px auto;
+  flex: 0 0 auto;
 }
 
-/* Make nav links easier to tap */
-.top-nav nav a {
-  padding: 10px 12px !important;
-  min-height: 44px !important;
+
+.hero-card-mobile {
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
 }
 
-/* Project items stack with more spacing */
-.projects-list {
-  display: grid !important;
-  grid-auto-rows: min-content !important;
-  gap: 12px !important;
+.hero-eyebrow { font-size: 11px; letter-spacing: 0.18em; color: rgba(229,243,255,0.6); margin: 0 0 6px 0; }
+.hero-card-mobile h1 { font-size: var(--text-lg); margin: 0 0 6px 0; }
+.hero-card-mobile h1 span { color: #31d4ff; }
+.hero-sub { font-size: var(--text-sm); color: rgba(170,187,204,0.85); margin: 0; }
+
+.projects-item-mobile {
+  padding: 10px;
+  background: rgba(5,9,21,0.6);
+  border-radius: 10px;
+  border: 1px solid rgba(49,212,255,0.04);
 }
 
-/* Ensure links and buttons meet touch target sizes */
-a, button, .project-link, .arrow-svg-link {
-  min-height: 44px !important;
-  padding: 10px 12px !important;
+.projects-list-mobile { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+.projects-item-mobile { padding: 10px; background: rgba(5,9,21,0.6); border-radius: 10px; border: 1px solid rgba(49,212,255,0.04); }
+.projects-title-mobile { font-size: 14px; font-weight: 600; }
+.projects-sub-mobile { font-size: 12px; color: rgba(170,187,204,0.85); margin-top: 6px; }
+
+.footer-mobile {
+  width: 100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding: 8px;
+  border-radius: 12px;
+  background: rgba(5,9,21,0.6);
+  border: 1px solid rgba(49,212,255,0.06);
+  margin-top: 6px;
 }
 
-/* Reduce typography slightly */
-.hero-card h1 { font-size: 20px !important; line-height: 1.12 !important; }
-.hero-eyebrow, .about-eyebrow { font-size: 12px !important; }
-.projects-sub, .about-text { font-size: 14px !important; }
+.footer-mobile { width: 100%; display:flex; justify-content:space-between; align-items:center; padding: 8px; border-radius: 12px; background: rgba(5,9,21,0.6); border: 1px solid rgba(49,212,255,0.06); }
+.footer-title-mobile { font-size: 13px; }
+.footer-link-mobile { font-size: 12px; padding: 6px 10px; border-radius: 999px; border:1px solid rgba(49,212,255,0.14); text-decoration:none; }
 
-/* Footer adjustments */
-.footer-card {
-  padding: 12px !important;
-  border-radius: 10px !important;
+
+/* Small tweaks for very small devices */
+@media (max-width: 360px) {
+.portrait-card-mobile { width: 100px; height: 140px; }
+.projects-list-mobile { max-height: 180px; }
+.hero-card-mobile h1 { font-size: 18px; }
+.frame-mobile { padding: 12px; }
 }
 
-/* Minor spacing improvements */
-.frame {
-  padding-left: 8px !important;
-  padding-right: 8px !important;
+/* ABOUT */
+.about-card-mobile {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(5,9,21,0.6);
+  border: 1px solid rgba(49,212,255,0.04);
 }
-
-/* Make sure any sticky elements don't overlap */
-body { padding-bottom: 40px; }
-
-/* If user prefers reduced motion, remove transitions */
-@media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important; }
+.about-eyebrow-mobile {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: rgba(229,243,255,0.7);
+  margin: 0 0 8px 0;
 }
+.about-text-mobile {
+  font-size: 13px;
+  color: rgba(170,187,204,0.9);
+  line-height: 1.4;
+}
+.about-text-mobile span { color: #31d4ff; font-weight: 500; }
+
+/* PROJECTS */
+.projects-card-mobile { width: 100%; margin-top: 6px; }
+.projects-header-mobile { font-size: 11px; letter-spacing: 0.18em; color: rgba(229,243,255,0.7); margin-bottom: 8px; }
+.projects-list-mobile { display:flex; flex-direction:column; gap:10px; }
+.projects-item-mobile { padding: 12px; border-radius: 10px; background: rgba(5,9,21,0.55); border:1px solid rgba(49,212,255,0.04); }
+.projects-title-mobile { font-size: 13px; color: rgba(229,243,255,0.95); margin-bottom: 6px; }
+.projects-sub-mobile { font-size: 12px; color: rgba(170,187,204,0.85); margin-bottom: 8px; }
+.projects-link-mobile { font-size: 12px; text-decoration: none; color: #31d4ff; font-weight: 600; }
+
+/* STATUS */
+.status-card-mobile {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(5,9,21,0.55);
+  border: 1px solid rgba(49,212,255,0.04);
+  margin-top: 8px;
+}
+.status-header-mobile { font-size: 11px; letter-spacing: 0.18em; color: rgba(229,243,255,0.7); margin-bottom: 8px; }
+.status-row-mobile { display:flex; justify-content:space-between; align-items:center; margin: 6px 0; }
+.status-title-mobile { font-size: 12px; color: rgba(170,187,204,0.9); }
+.status-value-mobile { font-size: 13px; color: rgba(229,243,255,0.95); text-align: right; max-width: 60%; }
+.status-pill-mobile { padding: 4px 8px; border-radius: 999px; border: 1px solid rgba(49,212,255,0.18); background: radial-gradient(circle at top left, rgba(49,212,255,0.12), rgba(5,9,21,0.9)); }
+
+/* small utility tweaks */
+.content-layer-mobile { padding-bottom: 20px; align-items: stretch; }
