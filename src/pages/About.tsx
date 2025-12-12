@@ -58,12 +58,21 @@ export default function AboutPage() {
               </a>
 
               <a
+                href="https://www.linkedin.com/in/dev-phadke-a2210a1a6/"
+                className="primary-btn"
+                aria-label="Linkedin"
+              >
+                Linkedin
+              </a>
+
+              <a
                 href="mailto:devphadke2000@gmail.com"
-                className="secondary-btn"
+                className="primary-btn"
                 aria-label="Contact via email"
               >
                 Contact Dev
               </a>
+
             </div>
 
             <div className="about-body">

@@ -52,16 +52,25 @@ export default function AboutMobile() {
               className="primary-btn"
               aria-label="Download CV"
             >
-              Download CV
+              CV
             </a>
 
             <a
-              href="mailto:devphadke2000@gmail.com"
-              className="secondary-btn"
-              aria-label="Contact via email"
+              href="https://www.linkedin.com/in/dev-phadke-a2210a1a6/"
+              className="primary-btn"
+              aria-label="Linkedin"
             >
-              Contact Dev
+              Linkedin
             </a>
+
+            <a
+                href="mailto:devphadke2000@gmail.com"
+                className="primary-btn"
+                aria-label="Contact via email"
+              >
+                Contact
+            </a>
+            
           </div>
         </div>
 
