@@ -32,9 +32,36 @@ body { margin: 0; font-family: system-ui, -apple-system, "SF Pro Text", "Segoe U
   border: 1px solid rgba(49,212,255,0.12);
   padding: 18px;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+  transition: opacity 0.28s ease, transform 0.28s ease;  
 }
 
+.frame-mobile {
+  /* keep this on the compositor so finishing the long opacity animation
+     does not force a repaint/hitch */
+  will-change: opacity, transform;
+  transform: translateZ(0); /* keep GPU compositing active */
+  backface-visibility: hidden;
+  contain: paint; /* optional — reduces layout impacts */
+}
+
+.frame-hidden {
+  background: transparent;
+  border: none;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(6px);
+  box-shadow: none;
+}
+
+.frame-visible {
+  background: rgba(5,9,21,0.95);
+  border: 1px solid rgba(49,212,255,0.12);
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+}
 
 .content-layer-mobile {
   display: flex;
@@ -60,7 +87,7 @@ body { margin: 0; font-family: system-ui, -apple-system, "SF Pro Text", "Segoe U
 
 
 .portrait-card-mobile {
-  width: 120px;
+  width: 220px;
   height: 160px;
   border-radius: 12px;
   background-size: cover;
@@ -68,10 +95,19 @@ body { margin: 0; font-family: system-ui, -apple-system, "SF Pro Text", "Segoe U
   box-shadow: 0 8px 30px rgba(0,0,0,0.7), 0 0 20px rgba(49,212,255,0.08) inset;
   margin: 8px auto;
   flex: 0 0 auto;
+
+  
+  position: absolute;
+  top: 80px;
+  left: 20%;
+  transform: translateX(-50%);
+  z-index: 60;
+
 }
 
 
 .hero-card-mobile {
+  margin-top: 170px;
   width: 100%;
   text-align: left;
   padding: 8px 10px;

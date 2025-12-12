@@ -7,32 +7,38 @@ import { Routes, Route, Link, useLocation } from "react-router-dom";
 
 import AboutPage from "./pages/About";
 
+/**
+ * Note: setHasStarted was removed from the FrameContentMobile props because it's not used inside the child.
+ */
+type FrameContentProps = {
+  hasStarted: boolean;
+  setShowUI: (v: boolean) => void;
+  showUI: boolean;
+};
+
 function FrameContentMobile({
   hasStarted,
   setShowUI,
   showUI,
-  setHasStarted: _setHasStarted,
-}: {
-  hasStarted: boolean;
-  setShowUI: (v: boolean) => void;
-  showUI: boolean;
-  setHasStarted: (v: boolean) => void;
-}) {
+}: FrameContentProps) {
+    void hasStarted
+    void setShowUI
   return (
     <motion.div
-      className={"frame-mobile"}
-      initial={{ opacity: 0, scale: 0.98 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.55, ease: "easeOut" }}
+      /* toggle a class depending on showUI so CSS can hide/unhide the frame */
+      className={`frame-mobile ${showUI ? "frame-visible" : "frame-hidden"}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 7 }}
     >
       <div className="content-layer-mobile">
-        {/* TOP NAV – appears after portrait finishes */}
+        {/* TOP NAV — waterfall delay (appears after portrait) */}
         {showUI && (
           <motion.header
             className="top-nav-mobile"
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, ease: "easeOut", delay: 0.06 }}
+            transition={{ duration: 0.5, ease: "easeOut", delay: 0.0 }}
           >
             <div className="logo">Dev Phadke</div>
             <nav>
@@ -41,31 +47,13 @@ function FrameContentMobile({
           </motion.header>
         )}
 
-        {/* PORTRAIT — ALWAYS MOUNTED (important). Animates in first. */}
-        <motion.div
-          className="portrait-card-mobile"
-          style={{
-            backgroundImage: `linear-gradient(to bottom, rgba(8,12,24,0.12), rgba(8,12,24,0.8)), url(${portraitImg})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-          // start slightly lower and (optionally) slightly left so movement is visible
-          initial={{ opacity: 1, x: 0, y: 40, scale: 0.98 }}
-          animate={hasStarted ? { opacity: 1, x: 0, y: 0, scale: 1 } : { opacity: 1, x: 0, y: 24, scale: 0.98 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          onAnimationComplete={() => {
-            // only reveal UI once the portrait has moved to its final spot
-            if (hasStarted && !showUI) setShowUI(true);
-          }}
-        />
-
-        {/* HERO – staggered a little after portrait */}
+        {/* HERO — waterfall */}
         {showUI && (
           <motion.div
             className="hero-card-mobile"
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, ease: "easeOut", delay: 0.08 }}
+            transition={{ duration: 0.36, ease: "easeOut", delay: 0.2 }}
           >
             <p className="hero-eyebrow">OVERVIEW</p>
             <h1>
@@ -79,9 +67,9 @@ function FrameContentMobile({
         {showUI && (
           <motion.section
             className="about-card-mobile"
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, ease: "easeOut", delay: 0.10 }}
+            transition={{ duration: 0.36, ease: "easeOut", delay: 0.4 }}
           >
             <p className="about-eyebrow-mobile">ABOUT</p>
             <p className="about-text-mobile">
@@ -96,9 +84,9 @@ function FrameContentMobile({
         {showUI && (
           <motion.div
             className="projects-card-mobile"
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, ease: "easeOut", delay: 0.12 }}
+            transition={{ duration: 0.36, ease: "easeOut", delay: 0.6 }}
           >
             <div className="projects-header-mobile">
               <span>PROJECTS</span>
@@ -138,9 +126,9 @@ function FrameContentMobile({
         {showUI && (
           <motion.div
             className="status-card-mobile"
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, ease: "easeOut", delay: 0.14 }}
+            transition={{ duration: 0.36, ease: "easeOut", delay: 0.72 }}
           >
             <div className="status-header-mobile">STATUS</div>
 
@@ -167,9 +155,9 @@ function FrameContentMobile({
         {showUI && (
           <motion.footer
             className="footer-mobile"
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, ease: "easeOut", delay: 0.16 }}
+            transition={{ duration: 0.36, ease: "easeOut", delay: 0.80 }}
           >
             <div className="footer-title-mobile">Accelerate your AI roadmap.</div>
             <a href="mailto:devphadke2000@gmail.com" className="footer-link-mobile">Email</a>
@@ -181,16 +169,13 @@ function FrameContentMobile({
 }
 
 export default function AppMobile() {
-  // START CLOSED — the entrance runs after a one-shot touch/click/keydown.
+  // START CLOSED — entrance runs after a one-shot touch/click/keydown.
   const [hasStarted, setHasStarted] = useState(false);
   const [showUI, setShowUI] = useState(false);
 
   useEffect(() => {
-    // one-shot starter: mark started and remove listeners immediately
     const handleStart = (_e: Event) => {
       setHasStarted(true);
-
-      // remove listeners immediately to prevent re-trigger
       window.removeEventListener("click", handleStart);
       window.removeEventListener("keydown", handleStart);
       window.removeEventListener("touchstart", handleStart);
@@ -216,6 +201,29 @@ export default function AppMobile() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
+      {/* PORTRAIT — render only on the home route and animate exit on navigation */}
+      <AnimatePresence mode="wait">
+        {location.pathname === "/" && (
+          <motion.div
+            key="portrait"
+            className="portrait-card-mobile"
+            style={{
+              backgroundImage: `linear-gradient(to bottom, rgba(8,12,24,0.12), rgba(8,12,24,0.8)), url(${portraitImg})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+            // prevent re-running entrance on route changes
+            initial={{ opacity: 1, y: 40, scale: 0.98 }}
+            animate={hasStarted ? { opacity: 1, y: 0, scale: 1 } : { opacity: 1, y: 40, scale: 0.98 }}
+            exit={{ opacity: 0, y: -30, scale: 0.96 }}
+            transition={{ duration: 0.42, ease: "easeOut" }}
+            onAnimationComplete={() => {
+              if (hasStarted && !showUI) setShowUI(true);
+            }}
+          />
+        )}
+      </AnimatePresence>
+
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route
@@ -223,7 +231,6 @@ export default function AppMobile() {
             element={
               <FrameContentMobile
                 hasStarted={hasStarted}
-                setHasStarted={setHasStarted}
                 showUI={showUI}
                 setShowUI={setShowUI}
               />
